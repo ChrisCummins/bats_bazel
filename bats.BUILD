@@ -7,8 +7,8 @@ sh_binary(
     name = "bats",
     srcs = ["libexec/bats"],
     deps = [
-        ":bats_lib"
-    ]
+        ":bats_lib",
+    ],
 )
 
 sh_library(
