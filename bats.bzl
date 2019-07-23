@@ -21,8 +21,11 @@ def _impl(ctx):
         content = script,
     )
 
-    # To ensure the files needed by the script are available, we put them in
-    # the runfiles.
+    runfiles = ctx.runfiles(
+        files = [ctx.files._bats],
+        # Collect transitive dependencies from src, data, and deps attributes.
+        collect_default = True,
+    )
     runfiles = ctx.files.srcs + ctx.files.data + ctx.files._bats
     return [DefaultInfo(runfiles=ctx.runfiles(files=runfiles))]
 
@@ -31,7 +34,8 @@ bats_test = rule(
     implementation = _impl,
     test = True,
     attrs = {
-        "srcs": attr.label_list(allow_empty=False, allow_files=['.bats']),
+        "srcs": attr.label_list(allow_empty=False, allow_files=['.bats'],
+                                mandatory=True),
         "data": attr.label_list(allow_files=True),
         "_bats": attr.label(
              executable = True,
