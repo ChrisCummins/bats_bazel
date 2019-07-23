@@ -23,7 +23,7 @@ def _impl(ctx):
 
     # To ensure the files needed by the script are available, we put them in
     # the runfiles.
-    runfiles = ctx.files.srcs + ctx.files.deps + ctx.files._bats
+    runfiles = ctx.files.srcs + ctx.files.data + ctx.files._bats
     return [DefaultInfo(runfiles=ctx.runfiles(files=runfiles))]
 
 
@@ -32,7 +32,7 @@ bats_test = rule(
     test = True,
     attrs = {
         "srcs": attr.label_list(allow_empty=False, allow_files=['.bats']),
-        "deps": attr.label_list(),
+        "data": attr.label_list(allow_files=True),
         "_bats": attr.label(
              executable = True,
              cfg = "host",
