@@ -22,9 +22,10 @@ def _impl(ctx):
   )
 
   runfiles = ctx.runfiles(
-      transitive_files=ctx.files._bats + ctx.files.srcs + ctx.files.data,
+      files=ctx.files._bats,
       # Collect transitive dependencies from src, data, and deps attributes.
       collect_default=True,
+      collect_data=True,
   )
   return [DefaultInfo(runfiles=runfiles)]
 
