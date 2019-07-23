@@ -27,7 +27,7 @@ def _impl(ctx):
       collect_default=True,
   )
   runfiles = ctx.files.srcs + ctx.files.data + ctx.files._bats
-  return [DefaultInfo(runfiles=ctx.runfiles(files=runfiles))]
+  return [DefaultInfo(runfiles=runfiles)]
 
 
 bats_test = rule(
