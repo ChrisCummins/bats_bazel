@@ -1,5 +1,1 @@
-workspace(name = "com_github_chriscummins_bats")
-
-load("//:bats.bzl", "bats_deps")
-
-bats_deps()
+workspace(name = "com_github_chriscummins_rules_bats")
