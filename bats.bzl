@@ -16,6 +16,7 @@ def _impl(ctx):
           "#!/usr/bin/env bash",
           "# Set working directory for bats from bazel test environment.",
           'if [[ -n "$TEST_TMPDIR" ]]; then',
+          '  echo "Using TMPDIR=$TEST_TMPDIR"',
           '  export TMPDIR="$TEST_TMPDIR"',
           "fi",
           "set -eu",
