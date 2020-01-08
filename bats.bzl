@@ -12,8 +12,16 @@ echo Testing {path} ...
 
 def _impl(ctx):
   script = "\n".join(
-      ["#!/usr/bin/env bash"] + ['set -eu'] +
-      [_run_bats_on_file(ctx.files._bats[0], f) for f in ctx.files.srcs])
+      [
+          "#!/usr/bin/env bash",
+          "# Set working directory for bats from bazel test environment.",
+          'if [[ -n "$TEST_TMPDIR" ]]; then',
+          '  export TMPDIR="$TEST_TMPDIR"',
+          "fi",
+          "set -eu",
+      ] + [
+          _run_bats_on_file(ctx.files._bats[0], f) for f in ctx.files.srcs
+      ])
 
   # Write the file, it is executed by 'bazel test'.
   ctx.actions.write(
